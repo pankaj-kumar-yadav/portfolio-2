@@ -9,6 +9,7 @@ import Image from '@/components/Image'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
+import { plural } from 'lib/utils'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path) =>
@@ -27,9 +28,11 @@ interface LayoutProps {
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
   children: ReactNode
+  readingTime: string
+  views: string
 }
 
-export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
+export default function PostLayout({ content, authorDetails, next, prev, children, readingTime, views }: LayoutProps) {
   const { filePath, path, slug, date, title, tags } = content
   const basePath = path.split('/')[0]
 
@@ -53,6 +56,15 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               <div>
                 <PageTitle>{title}</PageTitle>
               </div>
+              <span className="flex justify-center items-center space-x-2 text-gray-500 dark:text-gray-400">
+                <dd className="text-sm font-medium">
+                  {views}{" "}{plural(Number(views),"view")}
+                </dd>
+                <span className="w-1 h-1 rounded-full bg-gray-500 dark:bg-gray-400 mx-2"></span>
+                <dd className="text-sm font-medium">
+                  {readingTime}
+                </dd>
+              </span>
             </div>
           </header>
           <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0">

@@ -13,7 +13,11 @@ import PostBanner from '@/layouts/PostBanner'
 import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
+import ReportView from './view'
 
+import { Redis } from '@upstash/redis'
+
+const redis = Redis.fromEnv()
 const defaultLayout = 'PostLayout'
 const layouts = {
   PostSimple,
@@ -96,6 +100,10 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
     return coreContent(authorResults as Authors)
   })
   const mainContent = coreContent(post)
+  const { text } = mainContent.readingTime;
+  const views = redis.mget(
+    ["pageviews", "posts", slug].join(":")
+  )
   const jsonLd = post.structuredData
   jsonLd['author'] = authorDetails.map((author) => {
     return {
@@ -105,14 +113,15 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
   })
 
   const Layout = layouts[post.layout || defaultLayout]
-
+  console.log(typeof views)
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev}>
+      <ReportView slug={slug} />
+      <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev} readingTime={text} views={views}>
         <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
       </Layout>
     </>
