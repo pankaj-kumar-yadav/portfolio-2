@@ -32,7 +32,15 @@ interface LayoutProps {
   views: string
 }
 
-export default function PostLayout({ content, authorDetails, next, prev, children, readingTime, views }: LayoutProps) {
+export default function PostLayout({
+  content,
+  authorDetails,
+  next,
+  prev,
+  children,
+  readingTime,
+  views
+}: LayoutProps) {
   const { filePath, path, slug, date, title, tags } = content
   const basePath = path.split('/')[0]
 
@@ -56,14 +64,12 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               <div>
                 <PageTitle>{title}</PageTitle>
               </div>
-              <span className="flex justify-center items-center space-x-2 text-gray-500 dark:text-gray-400">
+              <span className="flex items-center justify-center  space-x-2 text-gray-500 dark:text-gray-400">
                 <dd className="text-sm font-medium">
-                  {views}{" "}{plural(Number(views),"view")}
+                  {views}{' '}{plural(Number(views), 'view')}
                 </dd>
-                <span className="w-1 h-1 rounded-full bg-gray-500 dark:bg-gray-400 mx-2"></span>
-                <dd className="text-sm font-medium">
-                  {readingTime}
-                </dd>
+                <span className="mx-2 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400"></span>
+                <dd className="text-sm font-medium">{readingTime}</dd>
               </span>
             </div>
           </header>

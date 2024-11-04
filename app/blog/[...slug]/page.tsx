@@ -100,10 +100,8 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
     return coreContent(authorResults as Authors)
   })
   const mainContent = coreContent(post)
-  const { text } = mainContent.readingTime;
-  const views = redis.mget(
-    ["pageviews", "posts", slug].join(":")
-  )
+  const { text } = mainContent.readingTime
+  const views = redis.mget(['pageviews', 'posts', slug].join(':'))
   const jsonLd = post.structuredData
   jsonLd['author'] = authorDetails.map((author) => {
     return {
@@ -121,7 +119,14 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <ReportView slug={slug} />
-      <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev} readingTime={text} views={views}>
+      <Layout
+        content={mainContent}
+        authorDetails={authorDetails}
+        next={next}
+        prev={prev}
+        readingTime={text}
+        views={views}
+      >
         <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
       </Layout>
     </>
