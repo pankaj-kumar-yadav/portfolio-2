@@ -6,6 +6,7 @@ export const runtime = 'edge';
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const body = await req.json();
+  
   let slug: string | undefined = undefined;
 
   if ('slug' in body) {
