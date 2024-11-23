@@ -66,7 +66,7 @@ export default function PostLayout({
               </div>
               <span className="flex items-center justify-center  space-x-2 text-gray-500 dark:text-gray-400">
                 <dd className="text-sm font-medium">
-                  {views}{' '}{plural(Number(views), 'view')}
+                  {views || 0}{' '}{plural(Number(views), 'view')}
                 </dd>
                 <span className="mx-2 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400"></span>
                 <dd className="text-sm font-medium">{readingTime}</dd>

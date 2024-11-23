@@ -1,0 +1,40 @@
+---
+title: 'Building a Conditional Rendering Component in React'
+date: '2024-11-23'
+tags: ['react', 'component-design', 'frontend', 'typescript']
+draft: false
+summary: 'Learn how to create a reusable conditional rendering component in React using TypeScript. This component allows developers to cleanly handle conditional rendering scenarios with optional fallbacks.'
+---
+
+# Building a Conditional Rendering Component in React
+
+Conditional rendering is a common pattern in React applications. In this guide, we will create a reusable component, `ShowComponent`, that makes conditional rendering more readable and maintainable.
+
+## Prerequisites
+
+Before diving in, ensure you have the following:
+
+- A basic understanding of React and TypeScript
+- A React project set up (preferably with Vite, Create React App, or Next.js)
+
+## The `ShowComponent`
+
+The `ShowComponent` allows developers to conditionally render child components or provide a fallback when a condition is not met.
+
+### Code Implementation
+
+```tsx
+// src/components/ShowComponent.tsx
+import React from 'react';
+
+interface ShowComponentProps {
+    when: boolean; // Condition for rendering children
+    children: React.ReactNode; // The content to render when the condition is true
+    fallback?: React.ReactNode; // Optional fallback content when the condition is false
+}
+
+const ShowComponent: React.FC<ShowComponentProps> = ({ when, children, fallback = null }) => {
+    return <>{when ? children : fallback}</>;
+};
+
+export default ShowComponent;
