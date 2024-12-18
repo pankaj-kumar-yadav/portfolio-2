@@ -6,8 +6,8 @@ const siteMetadata = {
   description: 'Full-stack Developer specializing in the MERN stack',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
-  siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',
+  siteUrl: 'https://pankajkumaryadav.vercel.app',
+  siteRepo: 'https://github.com/pankaj-kumar-yadav/portfolio-2',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   mastodon: 'https://mastodon.social/@mastodonuser',
